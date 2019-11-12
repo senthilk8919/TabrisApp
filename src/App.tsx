@@ -1,18 +1,22 @@
-import {Button, TextView, contentView, Constraint} from 'tabris';
+import {contentView, TextInput, WebView,Button, TextView, contentView, Constraint} from 'tabris';
 
 export class App {
 
   public start() {
     contentView.append(
       <$>
-        <Button center onSelect={this.showText}>Tap here</Button>
-        <TextView centerX bottom={[Constraint.prev, 20]} font={{size: 24}}/>
+        <TextInput left={16} right={16} top={8} message='Enter URL...'
+      text='http://en.wikipedia.org' floatMessage={false} onAccept={loadUrl}/>
+    <WebView stretchX bottom top='prev() 8'/>
       </$>
     );
   }
+function loadUrl() {
+  $(WebView).only().url = $(TextInput).only().text;
+}
 
-  private showText = () => {
-    $(TextView).only().text = 'Tabris.js rocks!';
-  }
+loadUrl();
+
+ 
 
 }
